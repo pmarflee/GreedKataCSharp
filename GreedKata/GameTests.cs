@@ -2,7 +2,7 @@
 
 namespace GreedKata
 {
-    public class ScorerTests
+    public class GameTests
     {
         [Theory]
         [InlineData(new[] { 1, 1, 1, 5, 1}, 1150)]
@@ -12,7 +12,7 @@ namespace GreedKata
         [InlineData(new[] { 5, 5, 5, 5, 5}, 600)]
         public void Score(int[] dice, int expectedResult)
         {
-            Assert.Equal(expectedResult, Scorer.Score(dice));
+            Assert.Equal(expectedResult, Game.Score(dice));
         }
     }
 }
