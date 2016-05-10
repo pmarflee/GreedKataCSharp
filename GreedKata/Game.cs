@@ -64,6 +64,21 @@ namespace GreedKata
         public TripleScorer(int number, int points) : base(number, 3, points) { }
     }
 
+    public class FourOfAKindScorer : OfAKindScorer
+    {
+        public FourOfAKindScorer(int number) : base(number, 4, number * 200) { }
+    }
+
+    public class FiveOfAKindScorer : OfAKindScorer
+    {
+        public FiveOfAKindScorer(int number) : base(number, 5, number * 400) { }
+    }
+
+    public class SixOfAKindScorer : OfAKindScorer
+    {
+        public SixOfAKindScorer(int number) : base(number, 6, number * 800) { }
+    }
+
     public class TripleOnesScorer : TripleScorer
     {
         public TripleOnesScorer() : base(1, 1000) { }
@@ -74,6 +89,21 @@ namespace GreedKata
         private static readonly Scorer[] _scorers = 
         {
             new TripleOnesScorer(),
+            new SixOfAKindScorer(2),
+            new SixOfAKindScorer(3),
+            new SixOfAKindScorer(4),
+            new SixOfAKindScorer(5),
+            new SixOfAKindScorer(6),
+            new FiveOfAKindScorer(2),
+            new FiveOfAKindScorer(3),
+            new FiveOfAKindScorer(4),
+            new FiveOfAKindScorer(5),
+            new FiveOfAKindScorer(6),
+            new FourOfAKindScorer(2),
+            new FourOfAKindScorer(3),
+            new FourOfAKindScorer(4),
+            new FourOfAKindScorer(5),
+            new FourOfAKindScorer(6),
             new TripleScorer(2),
             new TripleScorer(3),
             new TripleScorer(4),
