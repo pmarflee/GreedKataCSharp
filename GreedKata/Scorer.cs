@@ -19,25 +19,24 @@ namespace GreedKata
 
         public Tuple<int, int[]> Score(int[] dice)
         {
-            var found = new List<List<int>>();
-            var match = new List<int>();
+            var matches = new List<int>();
+            var newMatches = new List<int>();
 
             for (var i = 0; i < dice.Length; i++)
             {
                 if (dice[i] == _number)
                 {
-                    match.Add(i);
-                    if (match.Count == _count)
+                    newMatches.Add(i);
+                    if (newMatches.Count == _count)
                     {
-                        found.Add(match);
-                        match = new List<int>();
+                        matches.AddRange(newMatches);
+                        newMatches.Clear();
                     }
                 }
             }
 
-            var score = _score * found.Count;
-            var allIndexes = found.SelectMany(index => index).ToList();
-            var remainder = dice.Where((die, index) => !allIndexes.Contains(index)).ToArray();
+            var score = _score * (matches.Count / _count);
+            var remainder = dice.Where((die, index) => !matches.Contains(index)).ToArray();
 
             return Tuple.Create(score, remainder);
         }
