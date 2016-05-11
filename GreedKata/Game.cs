@@ -6,7 +6,7 @@ namespace GreedKata
 {
     public abstract class Scorer
     {
-        protected readonly int Points;
+        public readonly int Points;
 
         protected Scorer(int points)
         {
@@ -86,32 +86,9 @@ namespace GreedKata
 
     public static class Game
     {
-        private static readonly Scorer[] _scorers = 
-        {
-            new TripleOnesScorer(),
-            new SixOfAKindScorer(2),
-            new SixOfAKindScorer(3),
-            new SixOfAKindScorer(4),
-            new SixOfAKindScorer(5),
-            new SixOfAKindScorer(6),
-            new FiveOfAKindScorer(2),
-            new FiveOfAKindScorer(3),
-            new FiveOfAKindScorer(4),
-            new FiveOfAKindScorer(5),
-            new FiveOfAKindScorer(6),
-            new FourOfAKindScorer(2),
-            new FourOfAKindScorer(3),
-            new FourOfAKindScorer(4),
-            new FourOfAKindScorer(5),
-            new FourOfAKindScorer(6),
-            new TripleScorer(2),
-            new TripleScorer(3),
-            new TripleScorer(4),
-            new TripleScorer(5),
-            new TripleScorer(6),
-            new OneOfAKindScorer(1, 100),
-            new OneOfAKindScorer(5, 50)
-        };
+        private static readonly Scorer[] _scorers = CreateScorers()
+            .OrderByDescending(scorer => scorer.Points)
+            .ToArray();
 
         internal static int Score(int[] dice)
         {
@@ -122,6 +99,21 @@ namespace GreedKata
             });
 
             return overallResult.Item1;
+        }
+
+        internal static IEnumerable<Scorer> CreateScorers()
+        {
+            for (int i = 2; i <= 6; i++)
+            {
+                yield return new SixOfAKindScorer(i);
+                yield return new FiveOfAKindScorer(i);
+                yield return new FourOfAKindScorer(i);
+                yield return new TripleScorer(i);
+            }
+
+            yield return new TripleOnesScorer();
+            yield return new OneOfAKindScorer(1, 100);
+            yield return new OneOfAKindScorer(5, 50);
         }
     }
 }
