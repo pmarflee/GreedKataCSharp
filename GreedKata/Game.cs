@@ -84,6 +84,20 @@ namespace GreedKata
         public TripleOnesScorer() : base(1, 1000) { }
     }
 
+    public class StraightScorer : Scorer
+    {
+        public StraightScorer() : base(1200) { }
+
+        private static readonly int[] _straight = { 1, 2, 3, 4, 5, 6 };
+
+        public override Tuple<int, int[]> Score(int[] dice)
+        {
+            return _straight.SequenceEqual(dice.OrderBy(die => die))
+                ? Tuple.Create(Points, new int[0])
+                : Tuple.Create(0, dice);
+        }
+    }
+
     public static class Game
     {
         private static readonly Scorer[] _scorers = CreateScorers()
@@ -114,6 +128,7 @@ namespace GreedKata
             yield return new TripleOnesScorer();
             yield return new OneOfAKindScorer(1, 100);
             yield return new OneOfAKindScorer(5, 50);
+            yield return new StraightScorer();
         }
     }
 }
