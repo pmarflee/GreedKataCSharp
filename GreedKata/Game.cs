@@ -98,6 +98,20 @@ namespace GreedKata
         }
     }
 
+    public class ThreePairsScorer : Scorer
+    {
+        public ThreePairsScorer() : base(800) { }
+
+        public override Tuple<int, int[]> Score(int[] dice)
+        {
+            var groupedDice = dice.ToLookup(die => die);
+
+            return groupedDice.Count == 3 && groupedDice.All(g => g.Count() == 2)
+                ? Tuple.Create(Points, new int[0])
+                : Tuple.Create(0, dice);
+        }
+    }
+
     public static class Game
     {
         private static readonly Scorer[] _scorers = CreateScorers()
@@ -129,6 +143,7 @@ namespace GreedKata
             yield return new OneOfAKindScorer(1, 100);
             yield return new OneOfAKindScorer(5, 50);
             yield return new StraightScorer();
+            yield return new ThreePairsScorer();
         }
     }
 }

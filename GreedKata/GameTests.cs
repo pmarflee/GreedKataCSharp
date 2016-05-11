@@ -14,6 +14,7 @@ namespace GreedKata
         [InlineData(new[] { 2, 2, 2, 2, 2 }, 800)]
         [InlineData(new[] { 2, 2, 2, 2, 2, 2 }, 1600)]
         [InlineData(new[] { 1, 2, 3, 4, 5, 6 }, 1200)]
+        [InlineData(new[] { 2, 2, 3, 3, 4, 4 }, 800)]
         public void Score(int[] dice, int expectedResult)
         {
             Assert.Equal(expectedResult, Game.Score(dice));
